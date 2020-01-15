@@ -26,18 +26,21 @@ public class Employee  implements java.io.Serializable {
      private Integer idEmployee;
      private String firstName;
      private String lastName;
-     private Integer phone;
+     private String phone;
      private String email;
      private String password;
      private String baseLocation;
      private String type;
-     private Set<EventDetails> eventDetailses = new HashSet<EventDetails>(0);
-     private Set<EventEnrollment> eventEnrollments = new HashSet<EventEnrollment>(0);
 
+	
+	 private Set<EventDetails> eventDetailses = new HashSet<EventDetails>(0);
+	 /* * private Set<EventEnrollment> eventEnrollments = new
+	 * HashSet<EventEnrollment>(0);
+	 */
     public Employee() {
     }
 
-    public Employee(String firstName, String lastName, Integer phone, String email, String password, String baseLocation, String type, Set<EventDetails> eventDetailses, Set<EventEnrollment> eventEnrollments) {
+    public Employee(String firstName, String lastName, String phone, String email, String password, String baseLocation, String type, Set<EventDetails> eventDetailses) {
        this.firstName = firstName;
        this.lastName = lastName;
        this.phone = phone;
@@ -45,8 +48,10 @@ public class Employee  implements java.io.Serializable {
        this.password = password;
        this.baseLocation = baseLocation;
        this.type = type;
-       this.eventDetailses = eventDetailses;
-       this.eventEnrollments = eventEnrollments;
+		
+         this.eventDetailses = eventDetailses; 
+         /*	    this.eventEnrollments =eventEnrollments;
+		 */
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -83,11 +88,11 @@ public class Employee  implements java.io.Serializable {
 
     
     @Column(name="phone")
-    public Integer getPhone() {
+    public String getPhone() {
         return this.phone;
     }
     
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -131,23 +136,22 @@ public class Employee  implements java.io.Serializable {
         this.type = type;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="employee")
-    public Set<EventDetails> getEventDetailses() {
-        return this.eventDetailses;
-    }
-    
-    public void setEventDetailses(Set<EventDetails> eventDetailses) {
-        this.eventDetailses = eventDetailses;
-    }
-
-@OneToMany(fetch=FetchType.LAZY, mappedBy="employee")
-    public Set<EventEnrollment> getEventEnrollments() {
-        return this.eventEnrollments;
-    }
-    
-    public void setEventEnrollments(Set<EventEnrollment> eventEnrollments) {
-        this.eventEnrollments = eventEnrollments;
-    }
+	
+	
+	  @OneToMany(fetch=FetchType.LAZY, mappedBy="idEmployee") public
+	  Set<EventDetails> getEventDetailses() { return this.eventDetailses; }
+	  
+	  public void setEventDetailses(Set<EventDetails> eventDetailses) {
+	  this.eventDetailses = eventDetailses; }
+	 
+	  
+	/*
+	 * @OneToMany(fetch=FetchType.LAZY, mappedBy="employee") public
+	 * Set<EventEnrollment> getEventEnrollments() { return this.eventEnrollments; }
+	 * 
+	 * public void setEventEnrollments(Set<EventEnrollment> eventEnrollments) {
+	 * this.eventEnrollments = eventEnrollments; }
+	 */
 
 
 

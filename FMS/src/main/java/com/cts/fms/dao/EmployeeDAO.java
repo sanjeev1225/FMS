@@ -3,28 +3,23 @@ package com.cts.fms.dao;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import com.cts.fms.pojo.Employee;
 import com.cts.fms.repository.EmployeeRepository;
 
-@Service
-public class EmployeeDAO {
+@Repository
+public interface EmployeeDAO {
 	
-	@Autowired
-	EmployeeRepository employeeRepository;
 	
 	// Save an Employee
-	public Employee save(Employee emp)
-	{
-		return employeeRepository.save(emp);
-	}
+	public Employee save(Employee emp);
+	
 	
 	// Get all Employess
-	public List<Employee> findAll()
-	{
-		return employeeRepository.findAll();
-	}
+	public List<Employee> findAll();
+	;
 	
 	// Get an Employee by ID
 	
@@ -37,17 +32,11 @@ public class EmployeeDAO {
 	
 	//Delete a Employee
 	
-	public void delete(Employee emp)
-	{
-		employeeRepository.delete(emp);
-	}
+	public void delete(Employee emp);
 	
 	// Get an Employee by ID
 	
 		
-		  public Employee getOne(Integer idEmployee) { return
-		  employeeRepository.getOne(idEmployee);
-		  
-		  }
+		  public Employee getOne(Integer idEmployee) ;
 		 
 }

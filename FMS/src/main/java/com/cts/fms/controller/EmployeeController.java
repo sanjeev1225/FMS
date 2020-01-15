@@ -17,33 +17,34 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cts.fms.dao.EmployeeDAO;
 import com.cts.fms.pojo.Employee;
+import com.cts.fms.service.EmployeeService;
 
 @RestController
 @RequestMapping("/cts/fms")
 public class EmployeeController {
 
 	@Autowired
-	EmployeeDAO employeeDAO;
+	EmployeeService employeeService;
 
 	/* To Save an Employee */
 
 	@PostMapping("/saveemployee")
 	public Employee saveEmployee(@Valid @RequestBody Employee emp) {
-		return employeeDAO.save(emp);
+		return employeeService.save(emp);
 	}
 
 	/* To Get All employees */
 	@GetMapping("/getAllEmployees")
 	public List<Employee> getAllEmployee() {
-		return employeeDAO.findAll();
+		return employeeService.findAll();
 	}
 
 	
 	 /* get employee by empid */
 	  
-	  @GetMapping("/employees/{id}") public ResponseEntity<Employee>
+	  @GetMapping("/getemployees/{id}") public ResponseEntity<Employee>
 	  getEmployeeId(@PathVariable(value = "id") Integer empid) { 
-	  Employee emp=employeeDAO.getOne(empid);
+	  Employee emp=employeeService.getOne(empid);
 	  if (emp == null) { return
 	  ResponseEntity.notFound().build();
 	  
@@ -59,15 +60,17 @@ public class EmployeeController {
 	  
 	  @Valid @RequestBody Employee empDetails) {
 	  
-	  Employee emp=employeeDAO.getOne(empid); if (emp == null) { return
+	  Employee emp=employeeService.getOne(empid); if (emp == null) { return
 	  ResponseEntity.notFound().build();
 	  
 	  } emp.setFirstName(empDetails.getFirstName());
 	  emp.setLastName(empDetails.getLastName());
 	  emp.setEmail(empDetails.getEmail());
 	  emp.setBaseLocation(empDetails.getBaseLocation());
-	  emp.setPhone(empDetails.getPhone()); Employee updateEmployee =
-	  employeeDAO.save(emp); return ResponseEntity.ok().body(updateEmployee);
+	  emp.setPhone(empDetails.getPhone());
+	  emp.setType(empDetails.getType());
+	  Employee updateEmployee =
+	  employeeService.save(emp); return ResponseEntity.ok().body(updateEmployee);
 	  
 	  }
 	 
@@ -78,7 +81,7 @@ public class EmployeeController {
 	  @DeleteMapping("/employees/{id}") public ResponseEntity<Employee>
 	  deleteEmployee(@PathVariable(value="id") Integer empid) {
 	  
-	  Employee emp=employeeDAO.getOne(empid);
+	  Employee emp=employeeService.getOne(empid);
 	  
 	  if(emp==null) {
 		  return
@@ -86,7 +89,7 @@ public class EmployeeController {
 	  
 	  }
 	  
-	   employeeDAO.delete(emp); 
+	  employeeService.delete(emp); 
 	  return ResponseEntity.ok().build();
 	  
 	  }

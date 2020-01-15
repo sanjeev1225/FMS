@@ -2,18 +2,14 @@ package com.cts.fms.pojo;
 // Generated Oct 31, 2019 7:35:33 PM by Hibernate Tools 3.4.0.CR1
 
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -29,15 +25,27 @@ public class EventDetails  implements java.io.Serializable {
 
 
      private Integer idEventDetails;
-     private Employee employee;
-     private String month;
+     private Integer idEmployee;
+	 private String month;
      private String beneficiaryName;
      private String venueAddress;
      private String councilName;
      private String projectCategory;
      private String name;
      private String description;
-     private Date date;
+     private String eventID;
+     
+     
+     @Column(name="event_id")
+     public String getEventID() {
+		return eventID;
+	}
+
+	public void setEventID(String eventID) {
+		this.eventID = eventID;
+	}
+
+	private Date date;
      private Integer totalVolunteers;
      private Integer totalVolunteersHours;
      private Integer totalTravel;
@@ -45,13 +53,13 @@ public class EventDetails  implements java.io.Serializable {
      private Integer livesImpacted;
      private String activityType;
      private String status;
-     private Set<EventEnrollment> eventEnrollments = new HashSet<EventEnrollment>(0);
+    // private Set<EventEnrollment> eventEnrollments = new HashSet<EventEnrollment>(0);
 
     public EventDetails() {
     }
 
-    public EventDetails(Employee employee, String month, String beneficiaryName, String venueAddress, String councilName, String projectCategory, String name, String description, Date date, Integer totalVolunteers, Integer totalVolunteersHours, Integer totalTravel, String overallVolunteering, Integer livesImpacted, String activityType, String status, Set<EventEnrollment> eventEnrollments) {
-       this.employee = employee;
+    public EventDetails(String month, String beneficiaryName, String venueAddress, String councilName, String projectCategory, String name, String description, Date date, Integer totalVolunteers, Integer totalVolunteersHours, Integer totalTravel, String overallVolunteering, Integer livesImpacted, String activityType, String status,String eventID) {
+    //   this.employee = employee;
        this.month = month;
        this.beneficiaryName = beneficiaryName;
        this.venueAddress = venueAddress;
@@ -67,7 +75,8 @@ public class EventDetails  implements java.io.Serializable {
        this.livesImpacted = livesImpacted;
        this.activityType = activityType;
        this.status = status;
-       this.eventEnrollments = eventEnrollments;
+       this.eventID = eventID;
+       //this.eventEnrollments = eventEnrollments;
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -82,15 +91,22 @@ public class EventDetails  implements java.io.Serializable {
         this.idEventDetails = idEventDetails;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="id_employee")
-    public Employee getEmployee() {
-        return this.employee;
-    }
-    
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
+    @Column(name="id_employee")
+    public Integer getIdEmployee() {
+		return idEmployee;
+	}
+
+	public void setIdEmployee(Integer idEmployee) {
+		this.idEmployee = idEmployee;
+	}
+	/*
+	 * @ManyToOne(fetch=FetchType.LAZY)
+	 * 
+	 * @JoinColumn(name="id_employee") public Employee getEmployee() { return
+	 * this.employee; }
+	 * 
+	 * public void setEmployee(Employee employee) { this.employee = employee; }
+	 */
 
     
     @Column(name="month", length=45)
@@ -157,6 +173,8 @@ public class EventDetails  implements java.io.Serializable {
     public String getDescription() {
         return this.description;
     }
+    
+   
     
     public void setDescription(String description) {
         this.description = description;
@@ -242,14 +260,13 @@ public class EventDetails  implements java.io.Serializable {
         this.status = status;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="eventDetails")
-    public Set<EventEnrollment> getEventEnrollments() {
-        return this.eventEnrollments;
-    }
-    
-    public void setEventEnrollments(Set<EventEnrollment> eventEnrollments) {
-        this.eventEnrollments = eventEnrollments;
-    }
+	/*
+	 * @OneToMany(fetch=FetchType.LAZY, mappedBy="eventDetails") public
+	 * Set<EventEnrollment> getEventEnrollments() { return this.eventEnrollments; }
+	 * 
+	 * public void setEventEnrollments(Set<EventEnrollment> eventEnrollments) {
+	 * this.eventEnrollments = eventEnrollments; }
+	 */
 
 
 
